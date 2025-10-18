@@ -39,7 +39,7 @@ def get_datasetM(file_name, args):
     with open(file_name, "r", encoding="utf-8") as fn:
         data = json.load(fn)
 
-    # --- 새 채점 데이터 형태인지 판단: 'response' 키 존재 ---
+    # --- 새 채점 데이터 형태
     if isinstance(data, list) and data and isinstance(data[0], dict) and "response" in data[0]:
         for ex in data:
             resp = ex.get("response", "")
@@ -67,13 +67,11 @@ def get_datasetM(file_name, args):
         except Exception:
             continue
 
-        # 메타 인텐트 괄호 포함 샘플 스킵(기존 규칙 유지)
+
         meta_intent = line.get("metaIntent", "")
         if "(" in meta_intent:
             continue
 
-        # 프롬프트는 채점 템플릿이 아니라 기존 대화 템플릿을 원하면 아래를 바꿔도 됨.
-        # 여기서는 새 채점 템플릿으로 동일 적용: 학생 답변 = 첫 발화 utterance 로 가정
         try:
             student_resp = line["dialog"][0]["utterance"]
         except Exception:
@@ -81,9 +79,5 @@ def get_datasetM(file_name, args):
 
         texts.append(_build_scoring_prompt(student_resp))
 
-        # 기존 메타 라벨을 0/1/2로 매핑할 규칙이 없다면, 일단 그대로 사용하지 않고 스킵하거나
-        # 필요 시 규칙을 작성해야 함. 여기선 그대로 문자열을 "라벨"로 넣지 않고
-        # 안전하게 무시. (원한다면 매핑 규칙을 제공해줘!)
-        # labels.append(meta_intent)
 
     return texts, labels
