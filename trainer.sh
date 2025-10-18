@@ -22,7 +22,7 @@ TRAIN_DATA="/mnt/hdd/taehpark/LLM_finetuning/k12data/Q1_data/train.json"
 # ==== Output ====
 OUTPUT_DIR="./outputs/solar_설명글1_with_prompting_full_t3_lora"
 
-# ==== Hyperparameters (당신이 요청한 값 그대로) ====
+# ==== Hyperparameters====
 TRAIN_BATCH_SIZE=1
 DEV_BATCH_SIZE=1
 LR=2e-4
