@@ -48,7 +48,7 @@ def main():
     # Print
     print(f"Samples (total/used): {before} / {len(df)}")
     print(f"Accuracy: {acc:.4f}")
-    print(f"Cohen's kappa (unweighted): {kappa:.4f}")
+    # print(f"Cohen's kappa (unweighted): {kappa:.4f}")
     print(f"Cohen's kappa (quadratic): {kappa_quadratic:.4f}")
     print("\nConfusion Matrix (rows=gold 0/1/2, cols=pred 0/1/2):")
     print(pd.DataFrame(cm, index=[0,1,2], columns=[0,1,2]).to_string())
