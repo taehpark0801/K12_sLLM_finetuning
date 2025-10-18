@@ -4,7 +4,7 @@ import torch
 
 class Dataset(torch.utils.data.Dataset):
     """
-    trainer.py에서 get_datasetM으로 만든 texts(labels)를 그대로 받습니다.
+    trainer.py에서 get_datasetM으로 만든 texts(labels)
     반환: {"text": prompt, "label": "0점"/"1점"/"2점"}
     """
     def __init__(self, texts, labels, mode="train"):
@@ -24,7 +24,7 @@ class DataCollator:
     """
     - 프롬프트 구간은 label을 -100으로 마스킹
     - 정답("0점/1점/2점") 토큰만 loss에 기여
-    - 입력 시퀀스 끝에 정답 토큰도 실제로 붙여 teacher-forcing 분포와 일치
+    - 입력 시퀀스 끝에 정답 토큰도 실제로 붙여
     """
     def __init__(self, tokenizer, max_source_len, mode="train"):
         self.tok = tokenizer
