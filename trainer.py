@@ -21,11 +21,11 @@ from torch.distributed.fsdp.fully_sharded_data_parallel import (
 )
 from accelerate import FullyShardedDataParallelPlugin
 
-# Project modules (당신 리포 구조 기준)
+# Project modules 
 from logger import getLogger
 from model import LLMLoader           # LoRA 적용 래퍼
 from utils import get_datasetM        # metaIntent 데이터 로딩/전처리
-# 주의: 아래 두 개는 프로젝트 내 Dataset/Collator 구현을 사용한다고 가정
+
 from dataset import Dataset, DataCollator
 
 
@@ -156,7 +156,7 @@ class SimpleTrainer:
                 if step % self.args.logging_step == 0 and step != 0 and self.accelerator.is_main_process:
                     self._log(epoch, step, loss, len(self.train_loader))
 
-            # Save checkpoint per epoch (train.py와 동일한 저장 주기)
+            # Save checkpoint per epoch 
             if self.accelerator.is_main_process:
                 self._save(epoch)
             self.accelerator.wait_for_everyone()
@@ -200,7 +200,7 @@ class SimpleTrainer:
             )
 
     def _save(self, epoch):
-        # train.py와 유사: adapter/peft 가중치 저장
+        # adapter/peft 가중치 저장
         out_dir = os.path.join(self.args.output_path, f"{epoch + 1}")
         os.makedirs(out_dir, exist_ok=True)
         model_to_save = self.accelerator.unwrap_model(self.model)
